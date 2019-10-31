@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/dude_create_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_fragment"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/dude_create_guide_vertical_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <TextView
+        android:id="@+id/dude_create_color_header"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/background_fragment_top_chick"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/dude_create_textview_header"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="@string/add_chick2"
+        android:textColor="@color/colorPrimaryLight"
+        android:textStyle="bold"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:maxLines="1"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/dude_create_spinner_prompt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/spinner_prompt"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="12dp"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dude_create_textview_header"
+        />
+
+    <Spinner
+        android:id="@+id/dude_create_spinner_property"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dude_create_spinner_prompt"
+        />
+
+    <TextView
+        android:id="@+id/dude_create_prompt_info"
+        android:text="@string/info_prompt"
+        android:textSize="20sp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.5"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dude_create_spinner_property"
+        app:layout_constraintBottom_toTopOf="@id/dude_create_cancel_button"
+        />
+
+
+    <EditText
+        android:id="@+id/dude_create_edittext_info"
+        android:background="@android:color/transparent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:imeOptions = "flagNoFullscreen"
+        android:textCursorDrawable="@null"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_marginBottom="8dp"
+        android:gravity="top"
+        android:paddingTop="12dp"
+        android:paddingLeft="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dude_create_spinner_property"
+        app:layout_constraintBottom_toTopOf="@id/dude_create_cancel_button"
+        />
+
+    <Button
+        android:id="@+id/dude_create_cancel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_cancel"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/dude_create_guide_vertical_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <Button
+        android:id="@+id/dude_create_save_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintLeft_toLeftOf="@id/dude_create_guide_vertical_50"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

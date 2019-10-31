@@ -1,0 +1,64 @@
+<resources>
+
+    <string name="app_name">Счетчик «наркоманов» и «проституток»</string>
+
+    <string name="menu_clear">Удалить всё</string>
+    <string name="list_clear_confirm">Удалить весь список?</string>
+
+    <string name="list_item_text_date">Дата и время</string>
+
+    <string name="list_item_chick">«Проститутка»</string>
+    <string name="list_item_freak">«Наркоман»</string>
+    <string name="list_item_chick2">«Проституток»</string>
+    <string name="list_item_freak2">«Наркоманов»</string>
+
+    <string name="add_chick1">Добавить\n«проститутку»</string>
+    <string name="add_freak1">Добавить\n«наркомана»</string>
+    <string name="add_chick2">Добавить «проститутку»</string>
+    <string name="add_freak2">Добавить «наркомана»</string>
+
+    <string name="spinner_prompt">Выбрать характеристику:</string>
+    <string name="info_prompt">Напишите здесь дополнительную информацию, если пожелаете</string>
+    <string name="dude_date_time">Добавлено в список:</string>
+
+    <string name="button_save">Сохранить</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="button_delete">Удалить</string>
+
+    <string-array name="chicks_string_array">
+        <item>Тоже мне фифа</item>
+        <item>Голоногая тьфу</item>
+        <item>Позор нашего двора</item>
+        <item>Здороваться не умеет</item>
+        <item>Малахольная какая-то</item>
+        <item>Гадюка вредная</item>
+        <item>Вся в наколках</item>
+    </string-array>
+
+    <string-array name="freaks_string_array">
+        <item>Баклан немытый</item>
+        <item>Уголовник паскудный</item>
+        <item>Позор нашего двора</item>
+        <item>Здороваться не умеет</item>
+        <item>Хипарь малахольный</item>
+        <item>Кандидат на выселение</item>
+        <item>Весь в наколках</item>
+    </string-array>
+
+    <string name="spinner_edit">РЕДАКТИРОВАТЬ СПИСОК</string>
+    <string name="spinner_revert">Вернуть значения\nпо умолчанию</string>
+    <string name="land_spinner_revert">Вернуть значения по умолчанию</string>
+    <string name="spinner_item_revert">Вернуть значение этого пункта по умолчанию</string>
+
+    <string name="spinner_edit_header">Редактирование характеристик</string>
+    <string name="spinner_edit_prompt">Впишите ваши варианты характеристик</string>
+    <string name="spinner_edit_item_prompt">Впишите ваш вариант.\nНе более 25 символов</string>
+
+    <string name="delete_alert">Удалить из списка пункт</string>
+    <string name="delete_success1">Пункт</string>
+    <string name="delete_success2">успешно удален из списка</string>
+    <string name="delete_fail">Не удалось удалить из списка пункт</string>
+
+    <string name="empty_spinner_item">Нельзя оставлять пункт характеристики пустым!\nВозвращено прежнее значение</string>
+
+</resources>
