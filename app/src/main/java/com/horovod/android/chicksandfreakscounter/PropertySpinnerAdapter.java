@@ -35,9 +35,6 @@ public class PropertySpinnerAdapter extends ArrayAdapter<String> {
         TextView textView = null;
 
 
-        /** Не показывает закругленный угол */
-
-
         if (myDudeType.equals(DudeType.CHICK)) {
             row = inflater.inflate(R.layout.spinner_row_chick, parent, false);
             textView = row.findViewById(textViewID);

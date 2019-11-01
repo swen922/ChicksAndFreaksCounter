@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Loader loader;
+
     private TextView freaksCounterHeader;
     private TextView chicksCounterHeader;
     private TextView freaksCounter;
@@ -44,6 +46,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /** Тута попробовать получить интент и аынуть из него экстры */
+        Intent intent = getIntent();
+        if (intent != null) {
+            String dt = intent.getStringExtra(Data.KEY_DUDETYPE);
+            if (dt != null && !dt.isEmpty()) {
+                if (dt.equalsIgnoreCase(DudeType.CHICK.toString())) {
+                    addChick();
+                }
+                else {
+                    addFreak();
+                }
+            }
+        }
+
+
         fragmentManager = getSupportFragmentManager();
 
         View view = getLayoutInflater().inflate(R.layout.my_action_bar, null);
@@ -61,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         addChickTextView = findViewById(R.id.textview_add_chick);
 
 
-        final Loader loader = new Loader(getApplicationContext());
+        loader = new Loader(getApplicationContext());
         loader.readBaseFromJSON();
         loader.readChickSpinnerFromJSON();
         loader.readFreakSpinnerFromJSON();
@@ -72,44 +89,17 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        int addLength1 = getResources().getString(R.string.add_chick1).split("\n")[0].length();
-        int addLength2 = getResources().getString(R.string.add_chick1).split("\n")[1].length();
-        int addLength3 = getResources().getString(R.string.add_freak1).split("\n")[0].length();
-        int addLength4 = getResources().getString(R.string.add_freak1).split("\n")[1].length();
-
-        if ((addLength1 < 8) && (addLength2 < 8) && (addLength3 < 8) && (addLength4 < 8)) {
-            freaksCounterHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-            chicksCounterHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-            addFreakTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-            addChickTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-        }
-
-        // В черновую приложежку скопировал отсюда код установки высоты тектового блока - просто для шпаргалки
-
-
         addFreakTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                Data.createFragment = new CreateFragment();
-                Bundle args = new Bundle();
-                args.putString(Data.KEY_DUDETYPE, DudeType.FREAK.toString());
-                Data.createFragment.setArguments(args);
-                ft.add(R.id.container_main, Data.createFragment, null);
-                ft.commit();
+                addFreak();
             }
         });
 
         addChickTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                Data.createFragment = new CreateFragment();
-                Bundle args = new Bundle();
-                args.putString(Data.KEY_DUDETYPE, DudeType.CHICK.toString());
-                Data.createFragment.setArguments(args);
-                ft.add(R.id.container_main, Data.createFragment, null);
-                ft.commit();
+                addChick();
             }
         });
 
@@ -235,16 +225,6 @@ public class MainActivity extends AppCompatActivity {
         dialogClear.show(getSupportFragmentManager(), null);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(createReceiver);
-        unregisterReceiver(editReceiver);
-        unregisterReceiver(deleteReceiver);
-        unregisterReceiver(spinnerEditReceiver);
-        unregisterReceiver(clearListReceiver);
-    }
-
     // override OnBackPressed() for to close DudeFragment first, if it's opened now
     @Override
     public void onBackPressed() {
@@ -284,6 +264,88 @@ public class MainActivity extends AppCompatActivity {
         else {
             freaksCounter.setText(String.valueOf(0));
             chicksCounter.setText(String.valueOf(0));
+        }
+    }
+
+    private void addFreak() {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        Data.createFragment = new CreateFragment();
+        Bundle args = new Bundle();
+        args.putString(Data.KEY_DUDETYPE, DudeType.FREAK.toString());
+        Data.createFragment.setArguments(args);
+        ft.add(R.id.container_main, Data.createFragment, null);
+        ft.commit();
+    }
+
+    private void addChick() {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        Data.createFragment = new CreateFragment();
+        Bundle args = new Bundle();
+        args.putString(Data.KEY_DUDETYPE, DudeType.CHICK.toString());
+        Data.createFragment.setArguments(args);
+        ft.add(R.id.container_main, Data.createFragment, null);
+        ft.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(createReceiver);
+        unregisterReceiver(editReceiver);
+        unregisterReceiver(deleteReceiver);
+        unregisterReceiver(spinnerEditReceiver);
+        unregisterReceiver(clearListReceiver);
+    }
+
+    /*@Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(createReceiver);
+        unregisterReceiver(editReceiver);
+        unregisterReceiver(deleteReceiver);
+        unregisterReceiver(spinnerEditReceiver);
+        unregisterReceiver(clearListReceiver);
+    }*/
+
+    /*@Override
+    protected void onRestart() {
+        super.onRestart();
+        loader.readBaseFromJSON();
+        loader.readChickSpinnerFromJSON();
+        loader.readFreakSpinnerFromJSON();
+        updateCounters();
+        adapter.notifyDataSetChanged();
+    }*/
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (Data.dudeFragment != null || Data.createFragment != null) {
+            if (Data.spinnerEditFragment != null) {
+                outState.putString(Data.KEY_SPINNER_ITEM0, Data.spinnerEditFragment.getItemEditText0());
+                outState.putString(Data.KEY_SPINNER_ITEM1, Data.spinnerEditFragment.getItemEditText1());
+                outState.putString(Data.KEY_SPINNER_ITEM2, Data.spinnerEditFragment.getItemEditText2());
+                outState.putString(Data.KEY_SPINNER_ITEM3, Data.spinnerEditFragment.getItemEditText3());
+                outState.putString(Data.KEY_SPINNER_ITEM4, Data.spinnerEditFragment.getItemEditText4());
+                outState.putString(Data.KEY_SPINNER_ITEM5, Data.spinnerEditFragment.getItemEditText5());
+                outState.putString(Data.KEY_SPINNER_ITEM6, Data.spinnerEditFragment.getItemEditText6());
+            }
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (Data.dudeFragment != null || Data.createFragment != null) {
+            if (Data.spinnerEditFragment != null) {
+                Data.spinnerEditFragment.setItemEditText0(savedInstanceState.getString(Data.KEY_SPINNER_ITEM0));
+                Data.spinnerEditFragment.setItemEditText1(savedInstanceState.getString(Data.KEY_SPINNER_ITEM1));
+                Data.spinnerEditFragment.setItemEditText2(savedInstanceState.getString(Data.KEY_SPINNER_ITEM2));
+                Data.spinnerEditFragment.setItemEditText3(savedInstanceState.getString(Data.KEY_SPINNER_ITEM3));
+                Data.spinnerEditFragment.setItemEditText4(savedInstanceState.getString(Data.KEY_SPINNER_ITEM4));
+                Data.spinnerEditFragment.setItemEditText5(savedInstanceState.getString(Data.KEY_SPINNER_ITEM5));
+                Data.spinnerEditFragment.setItemEditText6(savedInstanceState.getString(Data.KEY_SPINNER_ITEM6));
+            }
         }
     }
 

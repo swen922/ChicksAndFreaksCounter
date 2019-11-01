@@ -25,6 +25,16 @@ public class Data {
     public static final String KEY_SPINNER_UPDATE_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_UPDATE_ITEM";
     public static final String KEY_PREVIOUS_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_PREVIOUS_ITEM";
 
+    public static final String KEY_SPINNER_ITEM0 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM0";
+    public static final String KEY_SPINNER_ITEM1 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM1";
+    public static final String KEY_SPINNER_ITEM2 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM2";
+    public static final String KEY_SPINNER_ITEM3 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM3";
+    public static final String KEY_SPINNER_ITEM4 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM4";
+    public static final String KEY_SPINNER_ITEM5 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM5";
+    public static final String KEY_SPINNER_ITEM6 = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_ITEM6";
+
+
+
 
     public static CreateFragment createFragment;
     public static DudeFragment dudeFragment;

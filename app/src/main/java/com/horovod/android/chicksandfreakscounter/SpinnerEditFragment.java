@@ -44,6 +44,62 @@ public class SpinnerEditFragment extends Fragment {
     private int selectedPosition = 0;
 
 
+    public String getItemEditText0() {
+        return itemEditText0.getText().toString();
+    }
+
+    public void setItemEditText0(String itemText) {
+        this.itemEditText0.setText(itemText);
+    }
+
+    public String getItemEditText1() {
+        return itemEditText1.getText().toString();
+    }
+
+    public void setItemEditText1(String itemText) {
+        this.itemEditText1.setText(itemText);
+    }
+
+    public String getItemEditText2() {
+        return itemEditText2.getText().toString();
+    }
+
+    public void setItemEditText2(String itemText) {
+        this.itemEditText2.setText(itemText);
+    }
+
+    public String getItemEditText3() {
+        return itemEditText3.getText().toString();
+    }
+
+    public void setItemEditText3(String itemText) {
+        this.itemEditText3.setText(itemText);
+    }
+
+    public String getItemEditText4() {
+        return itemEditText4.getText().toString();
+    }
+
+    public void setItemEditText4(String itemText) {
+        this.itemEditText4.setText(itemText);
+    }
+
+    public String getItemEditText5() {
+        return itemEditText5.getText().toString();
+    }
+
+    public void setItemEditText5(String itemText) {
+        this.itemEditText5.setText(itemText);
+    }
+
+    public String getItemEditText6() {
+        return itemEditText6.getText().toString();
+    }
+
+    public void setItemEditText6(String itemText) {
+        this.itemEditText6.setText(itemText);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

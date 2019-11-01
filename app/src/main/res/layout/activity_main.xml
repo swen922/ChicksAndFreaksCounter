@@ -18,22 +18,6 @@
         />
 
     <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_vertical_guide48"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.48"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_vertical_guide52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.52"
-        />
-
-    <android.support.constraint.Guideline
         android:id="@+id/portrait_main_vertical_guide54"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,90 +26,59 @@
         />
 
     <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide30"
+        android:id="@+id/portrait_main_horizontal_guide32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide04"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.04"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide06"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.06"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/portrait_main_horizontal_guide20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2"
+        app:layout_constraintGuide_percent="0.32"
         />
 
 
     <TextView
         android:id="@+id/textview_counter_freaks_header"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:alpha="0.6"
         android:text="@string/list_item_freak2"
-        android:textSize="13sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:gravity="right"
-        android:alpha="0.6"
         android:maxLines="1"
-
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/portrait_main_vertical_guide46"
-        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide04"
+        app:layout_constraintBottom_toTopOf="@id/textview_counter_freaks"
         />
 
     <TextView
         android:id="@+id/textview_counter_chicks_header"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:alpha="0.6"
         android:text="@string/list_item_chick2"
         android:textSize="13sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:gravity="left"
-        android:alpha="0.6"
         android:maxLines="1"
-
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/portrait_main_vertical_guide54"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide04"
+        app:layout_constraintBottom_toTopOf="@id/textview_counter_chicks"
         />
 
     <TextView
@@ -137,11 +90,15 @@
         android:textStyle="bold"
         android:gravity="center|right"
         android:maxLines="1"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="500sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintTop_toTopOf="parent"
+        app:autoSizeStepGranularity="1sp"
+        app:layout_constraintVertical_weight="6"
+        app:layout_constraintTop_toBottomOf="@id/textview_counter_freaks_header"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/portrait_main_vertical_guide46"
-        app:layout_constraintBottom_toTopOf="@id/portrait_main_horizontal_guide25"
+        app:layout_constraintBottom_toTopOf="@id/textview_add_freak"
         />
 
     <TextView
@@ -149,10 +106,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text=":"
-        android:textSize="24sp"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:gravity="center"
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeMaxTextSize="50sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
         app:layout_constraintTop_toTopOf="@id/textview_counter_freaks"
         app:layout_constraintLeft_toLeftOf="@id/portrait_main_vertical_guide46"
         app:layout_constraintRight_toRightOf="@id/portrait_main_vertical_guide54"
@@ -169,49 +129,59 @@
         android:textAllCaps="true"
         android:gravity="center|left"
         android:maxLines="1"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="500sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintTop_toTopOf="parent"
+        app:autoSizeStepGranularity="1sp"
+        app:layout_constraintVertical_weight="6"
+        app:layout_constraintTop_toBottomOf="@id/textview_counter_chicks_header"
         app:layout_constraintLeft_toLeftOf="@id/portrait_main_vertical_guide54"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/portrait_main_horizontal_guide25"
+        app:layout_constraintBottom_toTopOf="@id/textview_add_chick"
         />
 
 
     <TextView
         android:id="@+id/textview_add_freak"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/add_freak1"
-        android:textSize="13sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textAllCaps="true"
-        android:gravity="right"
+        android:gravity="right|bottom"
         android:maxLines="2"
-
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
+        app:layout_constraintVertical_weight="2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/portrait_main_vertical_guide46"
-        app:layout_constraintTop_toTopOf="@id/portrait_main_horizontal_guide23"
-        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide30"
+        app:layout_constraintTop_toBottomOf="@id/textview_counter_freaks"
+        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide32"
         />
 
 
     <TextView
         android:id="@+id/textview_add_chick"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/add_chick1"
-        android:textSize="13sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textAllCaps="true"
-        android:gravity="left"
+        android:gravity="left|bottom"
         android:maxLines="2"
-
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
+        app:layout_constraintVertical_weight="2"
         app:layout_constraintLeft_toLeftOf="@id/portrait_main_vertical_guide54"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/portrait_main_horizontal_guide23"
-        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide30"
+        app:layout_constraintTop_toBottomOf="@id/textview_counter_chicks"
+        app:layout_constraintBottom_toBottomOf="@id/portrait_main_horizontal_guide32"
         />
 
 
@@ -219,14 +189,12 @@
         android:id="@+id/listview_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/portrait_main_horizontal_guide30"
+        android:paddingTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/portrait_main_horizontal_guide32"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
-
-
 
 
 
