@@ -46,21 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /** Тута попробовать получить интент и аынуть из него экстры */
-        Intent intent = getIntent();
-        if (intent != null) {
-            String dt = intent.getStringExtra(Data.KEY_DUDETYPE);
-            if (dt != null && !dt.isEmpty()) {
-                if (dt.equalsIgnoreCase(DudeType.CHICK.toString())) {
-                    addChick();
-                }
-                else {
-                    addFreak();
-                }
-            }
-        }
-
-
         fragmentManager = getSupportFragmentManager();
 
         View view = getLayoutInflater().inflate(R.layout.my_action_bar, null);
@@ -120,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 loader.writeBaseToJSON();
                 adapter.notifyDataSetChanged();
                 updateCounters();
+                updateWidget();
             }
         };
 
@@ -138,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     loader.writeBaseToJSON();
                     adapter.notifyDataSetChanged();
                     updateCounters();
+                    updateWidget();
                 }
             }
         };
@@ -163,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getString(R.string.delete_fail) + " " + (size - id), Toast.LENGTH_LONG).show();
                 }
                 updateCounters();
+                updateWidget();
             }
         };
         spinnerEditReceiver = new BroadcastReceiver() {
@@ -195,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Data.clearDudes();
                 updateCounters();
+                updateWidget();
                 loader.writeBaseToJSON();
                 adapter.notifyDataSetChanged();
             }
@@ -210,45 +199,22 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(spinnerEditReceiver, spinnerEditFilter);
         IntentFilter intentFilterClear = new IntentFilter(Data.KEY_CLEAR_LIST);
         registerReceiver(clearListReceiver, intentFilterClear);
+
+
+        // Интент из виджета с командой создать чувака или чувиху
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+                addChick();
+            }
+            else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
+                addFreak();
+            }
+        }
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
-    public void onClickMenuDelete(MenuItem item) {
-        AlertDialogClear dialogClear = new AlertDialogClear();
-        dialogClear.setCancelable(false);
-        dialogClear.show(getSupportFragmentManager(), null);
-    }
-
-    // override OnBackPressed() for to close DudeFragment first, if it's opened now
-    @Override
-    public void onBackPressed() {
-
-        if (Data.spinnerEditItemFragment != null) {
-            fragmentManager.beginTransaction().remove(Data.spinnerEditItemFragment).commit();
-            Data.spinnerEditItemFragment = null;
-        }
-        else if (Data.spinnerEditFragment != null) {
-            fragmentManager.beginTransaction().remove(Data.spinnerEditFragment).commit();
-            Data.spinnerEditFragment = null;
-        }
-        else if (Data.createFragment != null) {
-            fragmentManager.beginTransaction().remove(Data.createFragment).commit();
-            Data.createFragment = null;
-        }
-        else if (Data.dudeFragment != null) {
-            fragmentManager.beginTransaction().remove(Data.dudeFragment).commit();
-            Data.dudeFragment = null;
-        }
-        else {
-            super.onBackPressed();
-        }
-    }
 
     private void updateCounters() {
         if (!Data.getDudes().isEmpty()) {
@@ -287,6 +253,14 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    private void updateWidget() {
+        Intent intent = new Intent(MainActivity.this, ChicksAndFreaksWidget.class);
+        intent.setAction(Data.KEY_UPDATE_WIDGET);
+        intent.putExtra(Data.KEY_NUMBER_FREAK, freaksCounter.getText().toString());
+        intent.putExtra(Data.KEY_NUMBER_CHICK, chicksCounter.getText().toString());
+        sendBroadcast(intent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -297,25 +271,44 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(clearListReceiver);
     }
 
-    /*@Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(createReceiver);
-        unregisterReceiver(editReceiver);
-        unregisterReceiver(deleteReceiver);
-        unregisterReceiver(spinnerEditReceiver);
-        unregisterReceiver(clearListReceiver);
-    }*/
 
-    /*@Override
-    protected void onRestart() {
-        super.onRestart();
-        loader.readBaseFromJSON();
-        loader.readChickSpinnerFromJSON();
-        loader.readFreakSpinnerFromJSON();
-        updateCounters();
-        adapter.notifyDataSetChanged();
-    }*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    public void onClickMenuDelete(MenuItem item) {
+        AlertDialogClear dialogClear = new AlertDialogClear();
+        dialogClear.setCancelable(false);
+        dialogClear.show(getSupportFragmentManager(), null);
+    }
+
+    // override OnBackPressed() for to close DudeFragment first, if it's opened now
+    @Override
+    public void onBackPressed() {
+
+        if (Data.spinnerEditItemFragment != null) {
+            fragmentManager.beginTransaction().remove(Data.spinnerEditItemFragment).commit();
+            Data.spinnerEditItemFragment = null;
+        }
+        else if (Data.spinnerEditFragment != null) {
+            fragmentManager.beginTransaction().remove(Data.spinnerEditFragment).commit();
+            Data.spinnerEditFragment = null;
+        }
+        else if (Data.createFragment != null) {
+            fragmentManager.beginTransaction().remove(Data.createFragment).commit();
+            Data.createFragment = null;
+        }
+        else if (Data.dudeFragment != null) {
+            fragmentManager.beginTransaction().remove(Data.dudeFragment).commit();
+            Data.dudeFragment = null;
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

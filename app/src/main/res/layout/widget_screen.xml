@@ -1,145 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/widget_vertical_guide46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.46"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/widget_vertical_guide54"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.54"
-        />
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_gradient"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/widget_counter_freaks"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="0"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            android:gravity="center|right"
+            android:layout_margin="4dp"
+            android:maxLines="1"
+            android:layout_weight="9"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeMaxTextSize="200sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="1sp"
+
+            />
+
+        <TextView
+            android:id="@+id/widget_counter_separator"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text=":"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="1sp"
+
+            />
+
+        <TextView
+            android:id="@+id/widget_counter_chicks"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="0"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:gravity="center|left"
+            android:layout_margin="4dp"
+            android:maxLines="1"
+            android:layout_weight="9"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeMaxTextSize="200sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="1sp"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/widget_add_freak"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_freak1"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:gravity="right|bottom"
+            android:layout_margin="4dp"
+            android:maxLines="2"
+            android:layout_weight="9"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeMaxTextSize="80sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="1sp"
+
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
 
 
-    <TextView
-        android:id="@+id/widget_counter_freaks"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="0"
-        android:textColor="@color/colorPrimaryLight"
-        android:textStyle="bold"
-        android:gravity="center|right"
-        android:layout_margin="4dp"
-        android:maxLines="1"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeMaxTextSize="200sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeStepGranularity="1sp"
-        app:layout_constraintVertical_weight="4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/widget_vertical_guide46"
-        app:layout_constraintBottom_toTopOf="@id/widget_add_freak"
-        />
+        <TextView
+            android:id="@+id/widget_add_chick"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_chick1"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:gravity="left|bottom"
+            android:layout_margin="4dp"
+            android:maxLines="2"
+            android:layout_weight="9"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="80sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeStepGranularity="1sp"
 
-    <TextView
-        android:id="@+id/widget_counter_separator"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text=":"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeMaxTextSize="30sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeStepGranularity="1sp"
-        app:layout_constraintTop_toTopOf="@id/widget_counter_freaks"
-        app:layout_constraintLeft_toLeftOf="@id/widget_vertical_guide46"
-        app:layout_constraintRight_toRightOf="@id/widget_vertical_guide54"
-        app:layout_constraintBottom_toBottomOf="@id/widget_counter_freaks"
-        />
+            />
 
-    <TextView
-        android:id="@+id/widget_counter_chicks"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="0"
-        android:textColor="@color/colorPrimaryLight"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:gravity="center|left"
-        android:layout_margin="4dp"
-        android:maxLines="1"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeMaxTextSize="200sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeStepGranularity="1sp"
-        app:layout_constraintVertical_weight="4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/widget_vertical_guide54"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/widget_add_chick"
-        />
-
-
-    <TextView
-        android:id="@+id/widget_add_freak"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/add_freak1"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:gravity="right|bottom"
-        android:layout_margin="4dp"
-        android:maxLines="2"
-        app:autoSizeMinTextSize="4sp"
-        app:autoSizeMaxTextSize="80sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeStepGranularity="1sp"
-        app:layout_constraintVertical_weight="2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/widget_vertical_guide46"
-        app:layout_constraintTop_toBottomOf="@id/widget_counter_freaks"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-
-    <TextView
-        android:id="@+id/widget_add_chick"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/add_chick1"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:gravity="left|bottom"
-        android:layout_margin="4dp"
-        android:maxLines="2"
-        app:autoSizeMinTextSize="8sp"
-        app:autoSizeMaxTextSize="80sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeStepGranularity="1sp"
-        app:layout_constraintVertical_weight="2"
-        app:layout_constraintLeft_toLeftOf="@id/widget_vertical_guide54"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/widget_counter_chicks"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+    </LinearLayout>
 
 
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+</LinearLayout>
