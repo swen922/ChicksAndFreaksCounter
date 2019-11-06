@@ -207,7 +207,6 @@ public class CreateFragment extends Fragment {
                         inputDescription = Util.clearGaps(inputDescription);
                         String inputSpinner = propertySpinner.getSelectedItem().toString();
                         int spinnerPosition = getPositionOfSpinnerItem(inputSpinner);
-
                         Intent intent = new Intent(Data.KEY_CREATE_DUDE);
                         if (createDudeType.equalsIgnoreCase(DudeType.CHICK.toString())) {
                             intent.putExtra(Data.KEY_DUDETYPE, DudeType.CHICK.toString());

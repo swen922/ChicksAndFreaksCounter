@@ -12,6 +12,8 @@
     <string name="list_item_chick2">«Chicks»</string>
     <string name="list_item_freak2">«Freaks»</string>
 
+    <string name="widget_header">«Chicks» &amp;\u00A0«Freaks»</string>
+
     <string name="add_chick1">Add new\n«Chick»</string>
     <string name="add_freak1">Add new\n«Freak»</string>
     <string name="add_chick2">Add new «Chick»</string>

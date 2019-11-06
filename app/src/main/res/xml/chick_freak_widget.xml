@@ -4,7 +4,7 @@
     android:initialLayout="@layout/widget_screen"
     android:minWidth="110dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/ic_icon_widget_1a"
+
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"

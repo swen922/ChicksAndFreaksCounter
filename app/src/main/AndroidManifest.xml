@@ -24,9 +24,8 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource=""
-
-
+                android:resource="@xml/chick_freak_widget"
+                />
         </receiver>
         <activity android:name=".MainActivity">
             <intent-filter>

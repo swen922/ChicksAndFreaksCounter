@@ -1,6 +1,7 @@
 package com.horovod.android.chicksandfreakscounter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -124,7 +125,7 @@ public class Loader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("ERROR", "Eror reading Chicks spinner from storage");
         }
 
         String input = sb.toString();
@@ -150,7 +151,7 @@ public class Loader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("ERROR", "Error reading Freaks spinner from storage");
         }
 
         String input = sb.toString();

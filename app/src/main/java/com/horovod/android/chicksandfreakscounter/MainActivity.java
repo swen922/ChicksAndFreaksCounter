@@ -70,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         updateCounters();
 
-        adapter = new DudeAdapter(this, R.layout.list_item, Data.getDudes(), fragmentManager);
+        if (adapter == null) {
+            adapter = new DudeAdapter(this, R.layout.list_item, Data.getDudes(), fragmentManager);
+        }
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -89,105 +91,125 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        createReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String createDudeType = intent.getStringExtra(Data.KEY_DUDETYPE);
-                String descr = intent.getStringExtra(Data.KEY_DESCRIPTION);
-                int spinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
+        if (createReceiver == null) {
+            createReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
 
-                if (createDudeType.equalsIgnoreCase(DudeType.CHICK.toString())) {
-                    Data.createDude(DudeType.CHICK.toString(), descr, spinner);
-                }
-                else {
-                    Data.createDude(DudeType.FREAK.toString(), descr, spinner);
-                }
-                loader.writeBaseToJSON();
-                adapter.notifyDataSetChanged();
-                updateCounters();
-                updateWidget();
-            }
-        };
+                    String createDudeType = intent.getStringExtra(Data.KEY_DUDETYPE);
+                    String descr = intent.getStringExtra(Data.KEY_DESCRIPTION);
+                    int spinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
 
-        editReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+                    if (createDudeType.equalsIgnoreCase(DudeType.CHICK.toString())) {
+                        Data.createDude(DudeType.CHICK.toString(), descr, spinner);
+                    }
+                    else {
+                        Data.createDude(DudeType.FREAK.toString(), descr, spinner);
+                    }
 
-                int id = intent.getIntExtra(Data.KEY_IDNUMBER, -1);
-
-                if (id >= 0) {
-                    Dude dude = Data.getDude(id);
-                    String newDescription = intent.getStringExtra(Data.KEY_DESCRIPTION);
-                    int newSpinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
-                    dude.setDescription(newDescription);
-                    dude.setSpinnerSelectedPosition(newSpinner);
+                    intent.setAction("");
                     loader.writeBaseToJSON();
                     adapter.notifyDataSetChanged();
                     updateCounters();
                     updateWidget();
+
                 }
-            }
-        };
-        deleteReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+            };
+        }
 
-                int id = intent.getIntExtra(Data.KEY_IDNUMBER, -1);
-                int size = Data.getDudes().size();
+        if (editReceiver == null) {
+            editReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
 
-                if (id >= 0) {
-                    boolean result = Data.removeDude(id);
-                    if (result) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.delete_success1) + " " + (size - id) + " " + getString(R.string.delete_success2), Toast.LENGTH_LONG).show();
+                    int id = intent.getIntExtra(Data.KEY_IDNUMBER, -1);
+
+                    if (id >= 0) {
+                        Dude dude = Data.getDude(id);
+                        String newDescription = intent.getStringExtra(Data.KEY_DESCRIPTION);
+                        int newSpinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
+                        dude.setDescription(newDescription);
+                        dude.setSpinnerSelectedPosition(newSpinner);
+                        intent.setAction("");
                         loader.writeBaseToJSON();
                         adapter.notifyDataSetChanged();
+                        updateCounters();
+                        updateWidget();
+                    }
+                }
+            };
+        }
+
+        if (deleteReceiver == null) {
+            deleteReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+
+                    int id = intent.getIntExtra(Data.KEY_IDNUMBER, -1);
+                    int size = Data.getDudes().size();
+
+                    if (id >= 0) {
+                        boolean result = Data.removeDude(id);
+                        if (result) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_success1) + " " + (size - id) + " " + getString(R.string.delete_success2), Toast.LENGTH_LONG).show();
+                            loader.writeBaseToJSON();
+                            adapter.notifyDataSetChanged();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.delete_fail) + " " + (size - id), Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
                         Toast.makeText(getApplicationContext(), getString(R.string.delete_fail) + " " + (size - id), Toast.LENGTH_LONG).show();
                     }
+                    intent.setAction("");
+                    updateCounters();
+                    updateWidget();
                 }
-                else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.delete_fail) + " " + (size - id), Toast.LENGTH_LONG).show();
-                }
-                updateCounters();
-                updateWidget();
-            }
-        };
-        spinnerEditReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                adapter.notifyDataSetChanged();
-            }
-        };
+            };
+        }
 
-        clearListReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+        if (spinnerEditReceiver == null) {
+            spinnerEditReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    intent.setAction("");
+                    adapter.notifyDataSetChanged();
+                }
+            };
+        }
 
-                if (Data.spinnerEditItemFragment != null) {
-                    fragmentManager.beginTransaction().remove(Data.spinnerEditItemFragment).commit();
-                    Data.spinnerEditItemFragment = null;
-                }
-                if (Data.spinnerEditFragment != null) {
-                    fragmentManager.beginTransaction().remove(Data.spinnerEditFragment).commit();
-                    Data.spinnerEditFragment = null;
-                }
-                if (Data.createFragment != null) {
-                    fragmentManager.beginTransaction().remove(Data.createFragment).commit();
-                    Data.createFragment = null;
-                }
-                if (Data.dudeFragment != null) {
-                    fragmentManager.beginTransaction().remove(Data.dudeFragment).commit();
-                    Data.dudeFragment = null;
-                }
+        if (clearListReceiver == null) {
+            clearListReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
 
-                Data.clearDudes();
-                updateCounters();
-                updateWidget();
-                loader.writeBaseToJSON();
-                adapter.notifyDataSetChanged();
-            }
-        };
+                    if (Data.spinnerEditItemFragment != null) {
+                        fragmentManager.beginTransaction().remove(Data.spinnerEditItemFragment).commit();
+                        Data.spinnerEditItemFragment = null;
+                    }
+                    if (Data.spinnerEditFragment != null) {
+                        fragmentManager.beginTransaction().remove(Data.spinnerEditFragment).commit();
+                        Data.spinnerEditFragment = null;
+                    }
+                    if (Data.createFragment != null) {
+                        fragmentManager.beginTransaction().remove(Data.createFragment).commit();
+                        Data.createFragment = null;
+                    }
+                    if (Data.dudeFragment != null) {
+                        fragmentManager.beginTransaction().remove(Data.dudeFragment).commit();
+                        Data.dudeFragment = null;
+                    }
+                    intent.setAction("");
+                    Data.clearDudes();
+                    updateCounters();
+                    updateWidget();
+                    loader.writeBaseToJSON();
+                    adapter.notifyDataSetChanged();
+                }
+            };
+        }
+
 
         IntentFilter intentFilterCreate = new IntentFilter(Data.KEY_CREATE_DUDE);
         registerReceiver(createReceiver, intentFilterCreate);
@@ -204,12 +226,16 @@ public class MainActivity extends AppCompatActivity {
         // Интент из виджета с командой создать чувака или чувиху
         Intent intent = getIntent();
         if (intent != null) {
+
             if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+                intent.setAction("");
                 addChick();
             }
             else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
+                intent.setAction("");
                 addFreak();
             }
+
         }
 
     }
