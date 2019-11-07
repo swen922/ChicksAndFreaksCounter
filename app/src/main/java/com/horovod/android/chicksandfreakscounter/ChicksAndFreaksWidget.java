@@ -49,12 +49,7 @@ public class ChicksAndFreaksWidget extends AppWidgetProvider {
         if (intentOpenApp == null || pendingIntentApp == null) {
             intentOpenApp = new Intent(context, MainActivity.class);
             intentOpenApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            /*intentOpenApp.putExtra("IntentWidgetNumber", Data.intentWidgetCounter);
-            Data.intentWidgetCounter++;
-            Log.i("BLOGGGG Widget |||| ", "Data.intentWidgetCounter after increment = " + Data.intentWidgetCounter);*/
-
             pendingIntentApp = PendingIntent.getActivity(context, 0, intentOpenApp, PendingIntent.FLAG_CANCEL_CURRENT);
-
             remoteViews.setOnClickPendingIntent(R.id.widget_header, pendingIntentApp);
         }
 
@@ -62,26 +57,15 @@ public class ChicksAndFreaksWidget extends AppWidgetProvider {
             intentAddFreak = new Intent(context, MainActivity.class);
             intentAddFreak.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intentAddFreak.setAction(Data.KEY_CREATE_FREAK);
-            /*intentAddFreak.putExtra("IntentWidgetNumberFreak", Data.intentWidgetCounterFreaks);
-            Data.intentWidgetCounterFreaks++;
-            Log.i("BLOGGGG Widget |||| ", "Data.intentWidgetCounterFreaks after increment = " + Data.intentWidgetCounterFreaks);*/
-
             pendingIntentFreak = PendingIntent.getActivity(context, 1, intentAddFreak, PendingIntent.FLAG_CANCEL_CURRENT);
-
             remoteViews.setOnClickPendingIntent(R.id.widget_counter_freaks, pendingIntentFreak);
-
         }
 
         if (intentAddChick == null || pendingIntentChick == null) {
             intentAddChick = new Intent(context, MainActivity.class);
             intentAddChick.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intentAddChick.setAction(Data.KEY_CREATE_CHICK);
-            /*intentAddChick.putExtra("IntentWidgetNumberChick", Data.intentWidgetCounterChicks);
-            Data.intentWidgetCounterChicks++;
-            Log.i("BLOGGGG Widget |||| ", "Data.intentWidgetCounterChicks after increment = " + Data.intentWidgetCounterChicks);*/
-
             pendingIntentChick = PendingIntent.getActivity(context, 2, intentAddChick, PendingIntent.FLAG_CANCEL_CURRENT);
-
             remoteViews.setOnClickPendingIntent(R.id.widget_counter_chicks, pendingIntentChick);
         }
 

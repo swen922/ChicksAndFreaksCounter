@@ -1,5 +1,7 @@
 package com.horovod.android.chicksandfreakscounter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -226,16 +228,16 @@ public class MainActivity extends AppCompatActivity {
         // Интент из виджета с командой создать чувака или чувиху
         Intent intent = getIntent();
         if (intent != null) {
-
             if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+                intent.setFlags(0);
                 intent.setAction("");
                 addChick();
             }
             else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
+                intent.setFlags(0);
                 intent.setAction("");
                 addFreak();
             }
-
         }
 
     }
@@ -287,6 +289,43 @@ public class MainActivity extends AppCompatActivity {
         sendBroadcast(intent);
     }
 
+    public void onClickMenuDelete(MenuItem item) {
+        AlertDialogClear dialogClear = new AlertDialogClear();
+        dialogClear.setCancelable(false);
+        dialogClear.show(getSupportFragmentManager(), null);
+    }
+
+    public void onClickMenuWidget(MenuItem item) {
+        /*AlertDialogWidget dialogWidget = new AlertDialogWidget();
+        dialogWidget.setCancelable(true);
+        dialogWidget.show(getSupportFragmentManager(), null);*/
+
+        showDialog(1);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        //return super.onCreateDialog(id);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle(getResources().getString(R.string.dialog_widget_title));
+
+        View view = getLayoutInflater().inflate(R.layout.alert_widget, null);
+        builder.setView(view);
+        builder.setNeutralButton(getResources().getString(R.string.dialog_widget_button), null);
+
+        /*TextView textView = view.findViewById(R.id.alert_widget_textview);
+        textView.setText(getResources().getString(R.string.dialog_widget_text1));*/
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show(); /*** ОБЯЗАТЕЛЬНО!!! Вначале вызывать метод dialog.show() Иначе кнопки будут = null   ***/
+        dialog.getButton(dialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.colorBlueGrayDark));
+
+        return dialog;
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -303,12 +342,6 @@ public class MainActivity extends AppCompatActivity {
         //return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    public void onClickMenuDelete(MenuItem item) {
-        AlertDialogClear dialogClear = new AlertDialogClear();
-        dialogClear.setCancelable(false);
-        dialogClear.show(getSupportFragmentManager(), null);
     }
 
     // override OnBackPressed() for to close DudeFragment first, if it's opened now

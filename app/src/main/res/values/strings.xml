@@ -2,7 +2,14 @@
 
     <string name="app_name">«Chicks» &amp; «Freaks» counter</string>
 
-    <string name="menu_clear">Clear all</string>
+    <string name="menu_widget">Setup widget!</string>
+    <string name="menu_clear">Clear list</string>
+
+
+    <string name="dialog_widget_title">Install widget «Chicks &amp;\u00A0Freaks Counter»!</string>
+    <string name="dialog_widget_text1">Counter indication always on\u00A0screen. Click on\u00A0widget for open main counter. \nLong touch to\u00A0screen for install widget (look for detailed instructions on\u00A0the Internet).</string>
+    <string name="dialog_widget_button">OK</string>
+
     <string name="list_clear_confirm">Really delete all items in this list?</string>
 
     <string name="list_item_text_date">Date and Time</string>
