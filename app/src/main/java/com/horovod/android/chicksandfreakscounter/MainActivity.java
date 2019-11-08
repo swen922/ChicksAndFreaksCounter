@@ -2,7 +2,9 @@ package com.horovod.android.chicksandfreakscounter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Loader loader;
     private int freaks = 0;
     private int chicks = 0;
+    private int widgetID = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     private TextView freaksCounterHeader;
     private TextView chicksCounterHeader;
@@ -252,8 +255,16 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(clearListReceiver, intentFilterClear);
 
 
-        // Интент из виджета с командой создать чувака или чувиху
         Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            widgetID = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+
+
+
+        // Интент из виджета с командой создать чувака или чувиху
+        /*Intent intent = getIntent();
 
         if (intent != null) {
 
@@ -262,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
             //Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
             //Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
 
-            /*if (Intent.FLAG_ACTIVITY_NEW_TASK == intent.getFlags()) {
+            *//*if (Intent.FLAG_ACTIVITY_NEW_TASK == intent.getFlags()) {
 
                 Log.i("LOGGINGG MAIN", "inside first IF = Intent.FLAG_ACTIVITY_NEW_TASK");
                 Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
@@ -286,10 +297,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 intent.setFlags(0);
                 intent.setAction("");
-            }*/
+            }*//*
 
 
-            if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+            *//*if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
 
                 Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_CHICK");
                 Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
@@ -314,9 +325,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //updateWidget();
 
-            }
+            }*//*
 
-        }
+        }*/
 
     }
 
@@ -370,14 +381,41 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    private void updateWidget() {
+    /*private void updateWidget() {
         Intent intent = new Intent(MainActivity.this, ChicksAndFreaksWidget.class);
         intent.setAction(Data.KEY_UPDATE_WIDGET);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(Data.KEY_NUMBER_FREAK, freaks);
         intent.putExtra(Data.KEY_NUMBER_CHICK, chicks);
         sendBroadcast(intent);
+    }*/
+
+    /*private void updateWidget() {
+
+        if (widgetID != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            AppWidgetManager manager = AppWidgetManager.getInstance(this);
+            ChicksAndFreaksWidget.updateWidget(freaks, chicks, this, manager, widgetID);
+
+        }
+
+    }*/
+
+    /** Вроде бы этот вариант корректно и всегда вызывает onUpdate */
+
+    private void updateWidget() {
+
+        Intent intent = new Intent(this, ChicksAndFreaksWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+// Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+// since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, ChicksAndFreaksWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        intent.putExtra(Data.KEY_NUMBER_FREAK, freaks);
+        intent.putExtra(Data.KEY_NUMBER_CHICK, chicks);
+        sendBroadcast(intent);
+
     }
+
 
     public void onClickMenuDelete(MenuItem item) {
         AlertDialogClear dialogClear = new AlertDialogClear();
