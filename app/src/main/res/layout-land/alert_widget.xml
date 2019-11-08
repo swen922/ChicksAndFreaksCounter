@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/land_alert_widget_header"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/dialog_widget_title_land"
+        android:textStyle="bold"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+
+        android:maxLines="2"
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        />
+
+    <ImageView
+        android:id="@+id/alert_widget_imageview"
+        android:layout_width="161dp"
+        android:layout_height="110dp"
+        android:src="@drawable/widget_screenshot_eng_1"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/land_alert_widget_textview"
+        app:layout_constraintTop_toTopOf="@id/land_alert_widget_textview"
+
+        />
+
+    <TextView
+        android:id="@+id/land_alert_widget_textview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/dialog_widget_text1"
+        android:singleLine="false"
+        android:layout_marginTop="4dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+
+
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeMaxTextSize="80sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="1sp"
+
+        app:layout_constraintLeft_toRightOf="@id/alert_widget_imageview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/land_alert_widget_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -2,20 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_fragment"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
 
     <TextView
         android:id="@+id/alert_widget_header"
@@ -25,7 +12,10 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:singleLine="false"
-        android:padding="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
 
         app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,14 +23,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/alert_widget_imageview"
         app:layout_constraintVertical_weight="1"
-
         />
-
 
     <ImageView
         android:id="@+id/alert_widget_imageview"
-        android:layout_width="300dp"
-        android:layout_height="205dp"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
         android:src="@drawable/widget_screenshot_eng_1"
         android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal|top"
@@ -51,8 +39,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alert_widget_header"
         app:layout_constraintBottom_toTopOf="@id/alert_widget_textview"
-
-
         />
 
     <TextView
@@ -62,15 +48,16 @@
         android:text="@string/dialog_widget_text1"
         android:textSize="14sp"
         android:singleLine="false"
-        android:padding="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alert_widget_imageview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_weight="3"
-
-
         />
 
 

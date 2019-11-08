@@ -7,7 +7,13 @@
 
 
     <string name="dialog_widget_title">Install widget «Chicks &amp;\u00A0Freaks Counter»!</string>
-    <string name="dialog_widget_text1">Counter indication always on\u00A0screen. Click on\u00A0widget for open main counter. \nLong touch to\u00A0screen for install widget (look for detailed instructions on\u00A0the Internet).</string>
+    <string name="dialog_widget_title_land">Install onscreen widget \n«Chicks &amp;\u00A0Freaks Counter»!</string>
+
+    <string name="dialog_widget_text1">
+        • Counter indication always on\u00A0screen.
+        \n• Click on\u00A0widget to\u00A0open main counter.
+        \n• This widget is\u00A0already in\u00A0the list of\u00A0available widgets in\u00A0your device.
+        \n• Long touch to\u00A0screen to\u00A0install widget (look for detailed instructions on\u00A0the Internet).</string>
     <string name="dialog_widget_button">OK</string>
 
     <string name="list_clear_confirm">Really delete all items in this list?</string>

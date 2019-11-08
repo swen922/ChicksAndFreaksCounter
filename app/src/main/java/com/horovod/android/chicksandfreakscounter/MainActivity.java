@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,13 +21,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private Loader loader;
+    private int freaks = 0;
+    private int chicks = 0;
 
     private TextView freaksCounterHeader;
     private TextView chicksCounterHeader;
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver clearListReceiver;
 
     private FragmentManager fragmentManager;
+
+    private boolean allowAlertWidget = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         loader.readFreakSpinnerFromJSON();
 
         updateCounters();
+        updateWidget();
 
         if (adapter == null) {
             adapter = new DudeAdapter(this, R.layout.list_item, Data.getDudes(), fragmentManager);
@@ -102,14 +113,18 @@ public class MainActivity extends AppCompatActivity {
                     String descr = intent.getStringExtra(Data.KEY_DESCRIPTION);
                     int spinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
 
-                    if (createDudeType.equalsIgnoreCase(DudeType.CHICK.toString())) {
+                    if (DudeType.CHICK.toString().equalsIgnoreCase(createDudeType)) {
                         Data.createDude(DudeType.CHICK.toString(), descr, spinner);
                     }
-                    else {
+                    else if (DudeType.FREAK.toString().equalsIgnoreCase(createDudeType)) {
                         Data.createDude(DudeType.FREAK.toString(), descr, spinner);
                     }
 
                     intent.setAction("");
+                    intent.removeExtra(Data.KEY_DUDETYPE);
+                    intent.removeExtra(Data.KEY_DESCRIPTION);
+                    intent.removeExtra(Data.KEY_SPINNER);
+
                     loader.writeBaseToJSON();
                     adapter.notifyDataSetChanged();
                     updateCounters();
@@ -132,7 +147,11 @@ public class MainActivity extends AppCompatActivity {
                         int newSpinner = intent.getIntExtra(Data.KEY_SPINNER, 0);
                         dude.setDescription(newDescription);
                         dude.setSpinnerSelectedPosition(newSpinner);
+
                         intent.setAction("");
+                        intent.removeExtra(Data.KEY_DESCRIPTION);
+                        intent.removeExtra(Data.KEY_SPINNER);
+
                         loader.writeBaseToJSON();
                         adapter.notifyDataSetChanged();
                         updateCounters();
@@ -164,7 +183,11 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(getApplicationContext(), getString(R.string.delete_fail) + " " + (size - id), Toast.LENGTH_LONG).show();
                     }
+
                     intent.setAction("");
+                    intent.removeExtra(Data.KEY_DESCRIPTION);
+                    intent.removeExtra(Data.KEY_SPINNER);
+
                     updateCounters();
                     updateWidget();
                 }
@@ -175,7 +198,9 @@ public class MainActivity extends AppCompatActivity {
             spinnerEditReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
+
                     intent.setAction("");
+
                     adapter.notifyDataSetChanged();
                 }
             };
@@ -202,7 +227,9 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().remove(Data.dudeFragment).commit();
                         Data.dudeFragment = null;
                     }
+
                     intent.setAction("");
+
                     Data.clearDudes();
                     updateCounters();
                     updateWidget();
@@ -227,17 +254,68 @@ public class MainActivity extends AppCompatActivity {
 
         // Интент из виджета с командой создать чувака или чувиху
         Intent intent = getIntent();
+
         if (intent != null) {
-            if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+
+            Log.i("LOGGINGG MAIN", "intent != null!");
+
+            //Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
+            //Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
+
+            /*if (Intent.FLAG_ACTIVITY_NEW_TASK == intent.getFlags()) {
+
+                Log.i("LOGGINGG MAIN", "inside first IF = Intent.FLAG_ACTIVITY_NEW_TASK");
+                Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
+
+
+                if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+
+                    Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_CHICK");
+                    Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
+
+                    addChick();
+                    updateWidget();
+                }
+                else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
+
+                    Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_FREAK");
+                    Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
+
+                    addFreak();
+                    updateWidget();
+                }
                 intent.setFlags(0);
                 intent.setAction("");
+            }*/
+
+
+            if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
+
+                Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_CHICK");
+                Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
+
                 addChick();
+
+                intent.setFlags(0);
+                intent.setAction("");
+
+                //updateWidget();
+
             }
             else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
+
+                Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_FREAK");
+                Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
+
+                addFreak();
+
                 intent.setFlags(0);
                 intent.setAction("");
-                addFreak();
+
+                //updateWidget();
+
             }
+
         }
 
     }
@@ -246,22 +324,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateCounters() {
         if (!Data.getDudes().isEmpty()) {
-            int freaks = 0;
+            this.freaks = 0;
             for (Dude dude : Data.getDudes()) {
                 if (dude.getDudeType().equals(DudeType.FREAK.toString())) {
-                    freaks++;
+                    this.freaks++;
                 }
             }
-            freaksCounter.setText(String.valueOf(freaks));
-            chicksCounter.setText(String.valueOf(Data.getDudes().size() - freaks));
+            this.chicks = Data.getDudes().size() - this.freaks;
+
+            freaksCounter.setText(String.valueOf(this.freaks));
+            chicksCounter.setText(String.valueOf(this.chicks));
         }
         else {
+            this.freaks = 0;
+            this.chicks = 0;
             freaksCounter.setText(String.valueOf(0));
             chicksCounter.setText(String.valueOf(0));
         }
     }
 
     private void addFreak() {
+
+        Log.i("LOGGINGG MAIN", "inside addFreak");
+
+
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Data.createFragment = new CreateFragment();
         Bundle args = new Bundle();
@@ -272,6 +358,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addChick() {
+
+        Log.i("LOGGINGG MAIN", "inside addChick");
+
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Data.createFragment = new CreateFragment();
         Bundle args = new Bundle();
@@ -284,8 +373,9 @@ public class MainActivity extends AppCompatActivity {
     private void updateWidget() {
         Intent intent = new Intent(MainActivity.this, ChicksAndFreaksWidget.class);
         intent.setAction(Data.KEY_UPDATE_WIDGET);
-        intent.putExtra(Data.KEY_NUMBER_FREAK, freaksCounter.getText().toString());
-        intent.putExtra(Data.KEY_NUMBER_CHICK, chicksCounter.getText().toString());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(Data.KEY_NUMBER_FREAK, freaks);
+        intent.putExtra(Data.KEY_NUMBER_CHICK, chicks);
         sendBroadcast(intent);
     }
 
@@ -296,33 +386,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickMenuWidget(MenuItem item) {
-        /*AlertDialogWidget dialogWidget = new AlertDialogWidget();
-        dialogWidget.setCancelable(true);
-        dialogWidget.show(getSupportFragmentManager(), null);*/
-
+        /** Исправить самопоризвольное появление диалога при повороте экрана */
+        allowAlertWidget = true;
         showDialog(1);
     }
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        //return super.onCreateDialog(id);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle(getResources().getString(R.string.dialog_widget_title));
+        /***  boolean нужен, чтобы исключить самопроизвольное появление этого Алерта после поворота экрана   ***/
+        if (allowAlertWidget) {
+            allowAlertWidget = false;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.alert_widget, null);
 
-        View view = getLayoutInflater().inflate(R.layout.alert_widget, null);
-        builder.setView(view);
-        builder.setNeutralButton(getResources().getString(R.string.dialog_widget_button), null);
+            ImageView widgetImage = view.findViewById(R.id.alert_widget_imageview);
+            Locale currentLocale = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0);
 
-        /*TextView textView = view.findViewById(R.id.alert_widget_textview);
-        textView.setText(getResources().getString(R.string.dialog_widget_text1));*/
+            //Log.i("LOGGINGG", "current lang = " + currentLocale.getDisplayLanguage());
 
-        AlertDialog dialog = builder.create();
+            if (currentLocale.getDisplayLanguage().equalsIgnoreCase("русский")) {
+                //Log.i("LOGGINGG", "inside IF !!!");
+                widgetImage.setImageDrawable(getResources().getDrawable(R.drawable.widget_screenshot_rus_1));
+            }
+            else {
+                widgetImage.setImageDrawable(getResources().getDrawable(R.drawable.widget_screenshot_eng_1));
+            }
 
-        dialog.show(); /*** ОБЯЗАТЕЛЬНО!!! Вначале вызывать метод dialog.show() Иначе кнопки будут = null   ***/
-        dialog.getButton(dialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.colorBlueGrayDark));
+            builder.setView(view);
+                        builder.setNegativeButton(R.string.dialog_widget_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    allowAlertWidget = false;
+                }
+            });
 
-        return dialog;
+            AlertDialog dialog = builder.create();
+            dialog.show(); /** ОБЯЗАТЕЛЬНО!!! Вначале вызывать метод dialog.show() Иначе кнопки будут = null   **/
+            dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorBlueGrayDark));
+
+            return dialog;
+        }
+        return super.onCreateDialog(id);
 
     }
 
@@ -368,6 +473,11 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
+    /*** Оба метода нужны, чтобы при повороте экрана в окне редактирования списка для спиннера
+     * сохранялись еще пока не записанные значения (по умолчанию при повороте заново прогружаются старые,
+     * из предыдущего сохранения или вообще по умолчанию из ресуров) ***/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
