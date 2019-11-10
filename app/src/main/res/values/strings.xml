@@ -2,7 +2,7 @@
 
     <string name="app_name">«Chicks» &amp; «Freaks» counter</string>
 
-    <string name="menu_widget">Setup widget!</string>
+    <string name="menu_widget">Add widget!</string>
     <string name="menu_clear">Clear list</string>
 
 
@@ -41,23 +41,23 @@
     <string name="button_delete">Delete</string>
 
     <string-array name="chicks_string_array">
-        <item>Stupid</item>
-        <item>Naked legs</item>
+        <item>Stupid bimbo</item>
+        <item>Bare thighs</item>
         <item>Shame of our backyard</item>
-        <item>Do not say hello</item>
-        <item>Scatty bitch</item>
-        <item>Harmful viper</item>
-        <item>All in tattoos</item>
+        <item>Never says Hello</item>
+        <item>Silly sheep</item>
+        <item>Harmful stinker</item>
+        <item>Tattooed ass</item>
     </string-array>
 
     <string-array name="freaks_string_array">
-        <item>Filthy meanie</item>
+        <item>Filthy jerk</item>
         <item>Dirty jailbird</item>
         <item>Shame of our backyard</item>
-        <item>Do not say hello</item>
+        <item>Never says Hello</item>
         <item>Scatty hipster</item>
         <item>Candidate for eviction</item>
-        <item>All in tattoos</item>
+        <item>Tattooed goat</item>
     </string-array>
 
     <string name="spinner_edit">EDIT TRAITS LIST</string>

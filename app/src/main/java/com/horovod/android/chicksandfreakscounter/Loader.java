@@ -125,7 +125,7 @@ public class Loader {
                 }
             }
         } catch (IOException e) {
-            Log.e("ERROR", "Eror reading Chicks spinner from storage");
+            Log.i("LOG", "No saved Chick spinner found");
         }
 
         String input = sb.toString();
@@ -151,7 +151,7 @@ public class Loader {
                 }
             }
         } catch (IOException e) {
-            Log.e("ERROR", "Error reading Freaks spinner from storage");
+            Log.i("LOG", "No saved Freak spinner found");
         }
 
         String input = sb.toString();

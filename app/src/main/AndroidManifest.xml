@@ -4,11 +4,35 @@
     package="com.horovod.android.chicksandfreakscounter"
     >
 
-    <supports-screens
-        android:smallScreens="false"
-        android:normalScreens="true"
-        android:largeScreens="true"
-        />
+    <compatible-screens>
+        <screen
+            android:screenDensity="xxxhdpi"
+            android:screenSize="xlarge"/>
+        <screen
+            android:screenDensity="xxhdpi"
+            android:screenSize="xlarge"/>
+        <screen
+            android:screenDensity="xhdpi"
+            android:screenSize="xlarge"/>
+        <screen
+            android:screenDensity="xxxhdpi"
+            android:screenSize="large"/>
+        <screen
+            android:screenDensity="xxhdpi"
+            android:screenSize="large"/>
+        <screen
+            android:screenDensity="xhdpi"
+            android:screenSize="large"/>
+        <screen
+            android:screenDensity="xxxhdpi"
+            android:screenSize="normal"/>
+        <screen
+            android:screenDensity="xxhdpi"
+            android:screenSize="normal"/>
+        <screen
+            android:screenDensity="xhdpi"
+            android:screenSize="normal"/>
+    </compatible-screens>
 
     <application
         android:allowBackup="true"
@@ -17,6 +41,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:resizeableActivity="false"
         >
         <receiver android:name=".ChicksAndFreaksWidget">
             <intent-filter>

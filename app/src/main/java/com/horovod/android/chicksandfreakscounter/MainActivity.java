@@ -370,8 +370,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void addChick() {
 
-        Log.i("LOGGINGG MAIN", "inside addChick");
-
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Data.createFragment = new CreateFragment();
         Bundle args = new Bundle();
