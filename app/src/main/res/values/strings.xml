@@ -42,22 +42,22 @@
 
     <string-array name="chicks_string_array">
         <item>Stupid bimbo</item>
-        <item>Bare thighs</item>
-        <item>Shame of our backyard</item>
+        <item>Too bold mini</item>
+        <item>Not for our backyard</item>
         <item>Never says Hello</item>
         <item>Silly sheep</item>
-        <item>Harmful stinker</item>
-        <item>Tattooed ass</item>
+        <item>I do not like You!</item>
+        <item>Tattooed everywhere</item>
     </string-array>
 
     <string-array name="freaks_string_array">
-        <item>Filthy jerk</item>
-        <item>Dirty jailbird</item>
-        <item>Shame of our backyard</item>
+        <item>Unwashed citizen</item>
+        <item>Candidate for eviction</item>
+        <item>Not for our backyard</item>
         <item>Never says Hello</item>
         <item>Scatty hipster</item>
-        <item>Candidate for eviction</item>
-        <item>Tattooed goat</item>
+        <item>I do not like You!</item>
+        <item>Tattooed everywhere</item>
     </string-array>
 
     <string name="spinner_edit">EDIT TRAITS LIST</string>

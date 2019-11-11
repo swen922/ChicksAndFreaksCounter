@@ -101,13 +101,15 @@ public class SpinnerEditItemFragment extends Fragment {
                 revertItemTextView.setTextColor(getResources().getColor(R.color.colorBlueGrayPrimary));
             }
 
-            itemEditText.setText(currentItem);
+            //itemEditText.setText(currentItem);
+            itemEditText.setHint(currentItem);
 
             itemEditText.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (!hasTouching) {
                         itemEditText.setText("");
+                        itemEditText.setHint("");
                         hasTouching = true;
                     }
                     return false;
@@ -125,7 +127,8 @@ public class SpinnerEditItemFragment extends Fragment {
                     else {
                         baseItem = getResources().getStringArray(R.array.freaks_string_array)[itemPosition];
                     }
-                    itemEditText.setText(baseItem);
+                    //itemEditText.setText(baseItem);
+                    itemEditText.setHint(baseItem);
                     hasTouching = false;
                 }
             });

@@ -42,22 +42,22 @@
     <string name="button_delete">Удалить</string>
 
     <string-array name="chicks_string_array">
-        <item>Тоже мне фифа</item>
-        <item>Голоногая тьфу</item>
-        <item>Позор нашего двора</item>
+        <item>Та еще фифочка</item>
+        <item>Мини до ушей</item>
+        <item>Не для нашего двора</item>
         <item>Здороваться не умеет</item>
-        <item>Малахольная какая-то</item>
-        <item>Гадюка вредная</item>
+        <item>Малахольная тихоня</item>
+        <item>Не нрависси ты мне!</item>
         <item>Вся в наколках</item>
     </string-array>
 
     <string-array name="freaks_string_array">
-        <item>Баклан немытый</item>
-        <item>Уголовник паскудный</item>
-        <item>Позор нашего двора</item>
+        <item>Немытый гражданин</item>
+        <item>Выселить бы отседа</item>
+        <item>Не для нашего двора</item>
         <item>Здороваться не умеет</item>
         <item>Хипарь малахольный</item>
-        <item>Кандидат на выселение</item>
+        <item>Ну не нрависси ты мне!</item>
         <item>Весь в наколках</item>
     </string-array>
 
