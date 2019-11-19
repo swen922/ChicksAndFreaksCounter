@@ -39,7 +39,7 @@ public class CreateFragment extends Fragment {
     private TextView spinnerPromptTextView;
     private Spinner propertySpinner;
     private TextView infoPromptTextView;
-    private EditText descriptionEditText;
+    private TextView descriptionEditText;
     private Button cancelButton;
     private Button saveButton;
 
@@ -51,6 +51,7 @@ public class CreateFragment extends Fragment {
     private int selectedSpinnerPosition = 0;
 
     private BroadcastReceiver spinnerEditReceiver;
+    private BroadcastReceiver descriptionEditReceiver;
 
 
     @Nullable
@@ -62,8 +63,8 @@ public class CreateFragment extends Fragment {
         Data.createFragment = this;
 
         background = rootView.findViewById(R.id.dude_create_background);
-        //headerColor = rootView.findViewById(R.id.dude_create_color_header);
-        //headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
+        headerColor = rootView.findViewById(R.id.dude_create_color_header);
+        headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
         spinnerPromptTextView = rootView.findViewById(R.id.dude_create_spinner_prompt);
         propertySpinner = rootView.findViewById(R.id.dude_create_spinner_property);
         infoPromptTextView = rootView.findViewById(R.id.dude_create_prompt_info);
@@ -87,8 +88,8 @@ public class CreateFragment extends Fragment {
                     background.setBackground(getResources().getDrawable(R.drawable.background_fragment_chick));
 
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        headerColor = rootView.findViewById(R.id.dude_create_color_header);
-                        headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
+                        //headerColor = rootView.findViewById(R.id.dude_create_color_header);
+                        //headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
                         headerTextView.setText(getResources().getString(R.string.add_chick2));
                         headerTextView.setTextColor(getResources().getColor(R.color.colorPrimaryLight));
                         headerColor.setBackground(getResources().getDrawable(R.drawable.background_fragment_top_chick));
@@ -96,6 +97,8 @@ public class CreateFragment extends Fragment {
                     else {
                         backgroundLeft = rootView.findViewById(R.id.land_dude_create_background_left);
                         backgroundLeft.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_left_chick));
+                        headerColor.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_top_chick));
+
                     }
 
                     initSpinner(createDudeType);
@@ -104,8 +107,8 @@ public class CreateFragment extends Fragment {
                     background.setBackground(getResources().getDrawable(R.drawable.background_fragment_freak));
 
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        headerColor = rootView.findViewById(R.id.dude_create_color_header);
-                        headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
+                        //headerColor = rootView.findViewById(R.id.dude_create_color_header);
+                        //headerTextView = rootView.findViewById(R.id.dude_create_textview_header);
                         headerTextView.setText(getResources().getString(R.string.add_freak2));
                         headerTextView.setTextColor(getResources().getColor(R.color.colorBlueGrayLight));
                         headerColor.setBackground(getResources().getDrawable(R.drawable.background_fragment_top_freak));
@@ -113,6 +116,7 @@ public class CreateFragment extends Fragment {
                     else {
                         backgroundLeft = rootView.findViewById(R.id.land_dude_create_background_left);
                         backgroundLeft.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_left_freak));
+                        headerColor.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_top_freak));
                     }
 
                     initSpinner(createDudeType);
@@ -159,12 +163,25 @@ public class CreateFragment extends Fragment {
                     }
                 });
 
-                descriptionEditText.setOnTouchListener(new View.OnTouchListener() {
+                /*descriptionEditText.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         infoPromptTextView.setVisibility(View.INVISIBLE);
                         return false;
 
+                    }
+                });*/
+
+                descriptionEditText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        Data.dudeFragmentInput = new DudeFragmentInput();
+                        Bundle args = new Bundle();
+                        args.putString(Data.KEY_DESCRIPTION_ITEM, descriptionEditText.getText().toString());
+                        Data.dudeFragmentInput.setArguments(args);
+                        ft.add(R.id.container_main, Data.dudeFragmentInput, null);
+                        ft.commit();
                     }
                 });
 
@@ -232,8 +249,26 @@ public class CreateFragment extends Fragment {
 
                     }
                 };
+
+                descriptionEditReceiver = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String input = intent.getStringExtra(Data.KEY_DESCRIPTION_TEXT);
+                        if (input != null && !input.isEmpty()) {
+                            descriptionEditText.setText(input);
+                            infoPromptTextView.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            descriptionEditText.setText("");
+                            infoPromptTextView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                };
+
                 IntentFilter spinnerEditFilter = new IntentFilter(Data.KEY_SPINNER_EDIT);
                 getActivity().registerReceiver(spinnerEditReceiver, spinnerEditFilter);
+                IntentFilter descriptionEditFilter = new IntentFilter(Data.KEY_DESCRIPTION_EDIT);
+                getActivity().registerReceiver(descriptionEditReceiver, descriptionEditFilter);
 
             }
         }
@@ -300,15 +335,32 @@ public class CreateFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(spinnerEditReceiver);
+        getActivity().unregisterReceiver(descriptionEditReceiver);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String descr = descriptionEditText.getText().toString();
+        if (descr != null && !descr.isEmpty()) {
+            outState.putString(Data.KEY_DESCRIPTION_ITEM, descr);
+        }
     }
 
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        String descr = descriptionEditText.getText().toString();
-        if (descr != null && !descr.isEmpty()) {
-            infoPromptTextView.setVisibility(View.INVISIBLE);
+
+        if (savedInstanceState != null) {
+            String savedDescription = savedInstanceState.getString(Data.KEY_DESCRIPTION_ITEM);
+            if (savedDescription != null && !savedDescription.isEmpty()) {
+                descriptionEditText.setText(savedDescription);
+                infoPromptTextView.setVisibility(View.INVISIBLE);
+            }
+            else {
+                infoPromptTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 

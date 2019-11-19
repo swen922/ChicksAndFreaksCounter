@@ -41,7 +41,7 @@ public class DudeFragment extends Fragment {
     private Spinner propertySpinner;
     private TextView dateTextView;
     private TextView promptTextView;
-    private EditText descriptionEditText;
+    private TextView descriptionEditText; // изменено на TextView, чтобы открывать отдельный фрагмент под редактирование
     private ImageView shareImageView;
     private ImageView deleteImageView;
     private Button cancelButton;
@@ -56,15 +56,8 @@ public class DudeFragment extends Fragment {
     private int dudeID = -1;
 
     private BroadcastReceiver spinnerEditReceiver;
+    private BroadcastReceiver descriptionEditReceiver;
 
-
-    public String getDescriptionInEditText() {
-        return descriptionEditText.getText().toString();
-    }
-
-    public TextView getPromptTextView() {
-        return promptTextView;
-    }
 
     @Nullable
     @Override
@@ -116,7 +109,8 @@ public class DudeFragment extends Fragment {
                 else {
                     backgroundLeft = rootView.findViewById(R.id.land_dude_fragment_background_left);
                     backgroundLeft.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_left_chick));
-                    headerColor.setBackgroundColor(getResources().getColor(R.color.colorOrangeDark));
+                    //headerColor.setBackgroundColor(getResources().getColor(R.color.colorOrangeDark));
+                    headerColor.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_top_chick));
                 }
 
                 indexTextView.setBackground(getResources().getDrawable(R.drawable.background_fragment_index_chick));
@@ -137,7 +131,8 @@ public class DudeFragment extends Fragment {
                 else {
                     backgroundLeft = rootView.findViewById(R.id.land_dude_fragment_background_left);
                     backgroundLeft.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_left_freak));
-                    headerColor.setBackgroundColor(getResources().getColor(R.color.colorBlueGrayDark));
+                    //headerColor.setBackgroundColor(getResources().getColor(R.color.colorBlueGrayDark));
+                    headerColor.setBackground(getResources().getDrawable(R.drawable.land_background_fragment_top_freak));
                 }
 
                 indexTextView.setBackground(getResources().getDrawable(R.drawable.background_fragment_index_freak));
@@ -155,14 +150,33 @@ public class DudeFragment extends Fragment {
 
             propertySpinner.setSelection(myDude.getSpinnerSelectedPosition());
 
-            descriptionEditText.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    promptTextView.setVisibility(View.INVISIBLE);
-                    return false;
 
+            /*descriptionEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //promptTextView.setVisibility(View.INVISIBLE);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Data.dudeFragmentInput = new DudeFragmentInput();
+                ft.add(R.id.container_main, Data.dudeFragmentInput, null);
+                ft.commit();
+                return false;
+
+            }
+        });*/
+
+            descriptionEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    Data.dudeFragmentInput = new DudeFragmentInput();
+                    Bundle args = new Bundle();
+                    args.putString(Data.KEY_DESCRIPTION_ITEM, descriptionEditText.getText().toString());
+                    Data.dudeFragmentInput.setArguments(args);
+                    ft.add(R.id.container_main, Data.dudeFragmentInput, null);
+                    ft.commit();
                 }
             });
+
 
             descriptionEditText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -186,7 +200,6 @@ public class DudeFragment extends Fragment {
                     }
                 }
             });
-
 
 
             String description = myDude.getDescription();
@@ -312,8 +325,27 @@ public class DudeFragment extends Fragment {
 
                 }
             };
+
+            descriptionEditReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String input = intent.getStringExtra(Data.KEY_DESCRIPTION_TEXT);
+                    if (input != null && !input.isEmpty()) {
+                        descriptionEditText.setText(input);
+                        promptTextView.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        descriptionEditText.setText("");
+                        promptTextView.setVisibility(View.VISIBLE);
+                    }
+                }
+            };
+
             IntentFilter spinnerEditFilter = new IntentFilter(Data.KEY_SPINNER_EDIT);
             getActivity().registerReceiver(spinnerEditReceiver, spinnerEditFilter);
+            IntentFilter descriptionEditFilter = new IntentFilter(Data.KEY_DESCRIPTION_EDIT);
+            getActivity().registerReceiver(descriptionEditReceiver, descriptionEditFilter);
+
         }
 
         return rootView;
@@ -376,15 +408,31 @@ public class DudeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(spinnerEditReceiver);
+        getActivity().unregisterReceiver(descriptionEditReceiver);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String descr = descriptionEditText.getText().toString();
+        if (descr != null && !descr.isEmpty()) {
+            outState.putString(Data.KEY_DESCRIPTION_ITEM, descr);
+        }
+    }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        String descr = descriptionEditText.getText().toString();
-        if (descr != null && !descr.isEmpty()) {
-            promptTextView.setVisibility(View.INVISIBLE);
+
+        if (savedInstanceState != null) {
+            String savedDescription = savedInstanceState.getString(Data.KEY_DESCRIPTION_ITEM);
+            if (savedDescription != null && !savedDescription.isEmpty()) {
+                descriptionEditText.setText(savedDescription);
+                promptTextView.setVisibility(View.INVISIBLE);
+            }
+            else {
+                promptTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 

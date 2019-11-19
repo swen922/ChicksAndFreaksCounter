@@ -4,35 +4,14 @@
     package="com.horovod.android.chicksandfreakscounter"
     >
 
-    <compatible-screens>
-        <screen
-            android:screenDensity="xxxhdpi"
-            android:screenSize="xlarge"/>
-        <screen
-            android:screenDensity="xxhdpi"
-            android:screenSize="xlarge"/>
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="xlarge"/>
-        <screen
-            android:screenDensity="xxxhdpi"
-            android:screenSize="large"/>
-        <screen
-            android:screenDensity="xxhdpi"
-            android:screenSize="large"/>
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="large"/>
-        <screen
-            android:screenDensity="xxxhdpi"
-            android:screenSize="normal"/>
-        <screen
-            android:screenDensity="xxhdpi"
-            android:screenSize="normal"/>
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="normal"/>
-    </compatible-screens>
+    <supports-screens
+        android:smallScreens="false"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:resizeable="true"
+        android:anyDensity="true"
+        />
 
     <application
         android:allowBackup="true"

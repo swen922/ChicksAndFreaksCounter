@@ -33,8 +33,6 @@
         app:layout_constraintGuide_percent="0.7"
         />
 
-
-
     <TextView
         android:id="@+id/dude_fragment_color_header"
         android:layout_width="0dp"
@@ -89,7 +87,7 @@
     <TextView
         android:id="@+id/dude_fragment_prompt_info"
         android:text="@string/info_prompt"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -119,12 +117,11 @@
         />
 
 
-    <EditText
+    <TextView
         android:id="@+id/dude_fragment_edittext_info"
         android:background="@android:color/transparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:imeOptions = "flagNoFullscreen"
         android:textCursorDrawable="@null"
         android:inputType="textCapSentences|textMultiLine"
         android:layout_marginBottom="8dp"

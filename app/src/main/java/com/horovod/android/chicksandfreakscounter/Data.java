@@ -24,10 +24,11 @@ public class Data {
     public static final String KEY_SPINNER_EDIT_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_EDIT_ITEM";
     public static final String KEY_SPINNER_UPDATE_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_SPINNER_UPDATE_ITEM";
     public static final String KEY_PREVIOUS_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_PREVIOUS_ITEM";
+    public static final String KEY_DESCRIPTION_ITEM = "com.horovod.android.chicksandfreakscounter_KEY_DESCRIPTION_ITEM";
+    public static final String KEY_DESCRIPTION_EDIT = "com.horovod.android.chicksandfreakscounter_KEY_DESCRIPTION_EDIT";
+    public static final String KEY_DESCRIPTION_TEXT = "com.horovod.android.chicksandfreakscounter_KEY_DESCRIPTION_TEXT";
 
-    public static final String KEY_CREATE_CHICK = "com.horovod.android.chicksandfreakscounter_KEY_CREATE_CHICK";
-    public static final String KEY_CREATE_FREAK = "com.horovod.android.chicksandfreakscounter_KEY_CREATE_FREAK";
-    public static final String KEY_UPDATE_WIDGET = "com.horovod.android.chicksandfreakscounter_KEY_UPDATE_WIDGET";
+
     public static final String KEY_NUMBER_CHICK = "com.horovod.android.chicksandfreakscounter_KEY_NUMBER_CHICK";
     public static final String KEY_NUMBER_FREAK = "com.horovod.android.chicksandfreakscounter_KEY_NUMBER_FREAK";
 
@@ -45,6 +46,7 @@ public class Data {
 
     public static CreateFragment createFragment;
     public static DudeFragment dudeFragment;
+    public static DudeFragmentInput dudeFragmentInput;
     public static SpinnerEditFragment spinnerEditFragment;
     public static SpinnerEditItemFragment spinnerEditItemFragment;
 

@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean allowAlertWidget = false;
 
+    public FragmentManager getMyFragmentManager() {
+        return fragmentManager;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,75 +264,6 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             widgetID = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
-
-
-
-        // Интент из виджета с командой создать чувака или чувиху
-        /*Intent intent = getIntent();
-
-        if (intent != null) {
-
-            Log.i("LOGGINGG MAIN", "intent != null!");
-
-            //Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
-            //Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
-
-            *//*if (Intent.FLAG_ACTIVITY_NEW_TASK == intent.getFlags()) {
-
-                Log.i("LOGGINGG MAIN", "inside first IF = Intent.FLAG_ACTIVITY_NEW_TASK");
-                Log.i("LOGGINGG MAIN", "intent.getFlags() = " + intent.getFlags());
-
-
-                if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
-
-                    Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_CHICK");
-                    Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
-
-                    addChick();
-                    updateWidget();
-                }
-                else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
-
-                    Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_FREAK");
-                    Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
-
-                    addFreak();
-                    updateWidget();
-                }
-                intent.setFlags(0);
-                intent.setAction("");
-            }*//*
-
-
-            *//*if (Data.KEY_CREATE_CHICK.equalsIgnoreCase(intent.getAction())) {
-
-                Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_CHICK");
-                Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
-
-                addChick();
-
-                intent.setFlags(0);
-                intent.setAction("");
-
-                //updateWidget();
-
-            }
-            else if (Data.KEY_CREATE_FREAK.equalsIgnoreCase(intent.getAction())) {
-
-                Log.i("LOGGINGG MAIN", "inside second IF = Data.KEY_CREATE_FREAK");
-                Log.i("LOGGINGG MAIN", "intent.getAction() = " + intent.getAction());
-
-                addFreak();
-
-                intent.setFlags(0);
-                intent.setAction("");
-
-                //updateWidget();
-
-            }*//*
-
-        }*/
-
     }
 
 
@@ -355,9 +290,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addFreak() {
-
-        Log.i("LOGGINGG MAIN", "inside addFreak");
-
 
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Data.createFragment = new CreateFragment();
@@ -489,6 +421,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        Log.i("LOGGGINGGG ||||| ", "Data.dudeFragmentInput == null = " + (Data.dudeFragmentInput == null));
+
         if (Data.spinnerEditItemFragment != null) {
             fragmentManager.beginTransaction().remove(Data.spinnerEditItemFragment).commit();
             Data.spinnerEditItemFragment = null;
@@ -496,6 +430,10 @@ public class MainActivity extends AppCompatActivity {
         else if (Data.spinnerEditFragment != null) {
             fragmentManager.beginTransaction().remove(Data.spinnerEditFragment).commit();
             Data.spinnerEditFragment = null;
+        }
+        else if (Data.dudeFragmentInput != null) {
+            fragmentManager.beginTransaction().remove(Data.dudeFragmentInput).commit();
+            Data.dudeFragmentInput = null;
         }
         else if (Data.createFragment != null) {
             fragmentManager.beginTransaction().remove(Data.createFragment).commit();
@@ -508,6 +446,9 @@ public class MainActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+
+        Log.i("LOGGGINGGG ||||| ", "And now Data.dudeFragmentInput == null = " + (Data.dudeFragmentInput == null));
+
     }
 
 
